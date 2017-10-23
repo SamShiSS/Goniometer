@@ -1,0 +1,64 @@
+condition='linsk4';   % Enter condition
+
+% Before each data collection session, write order of conditions
+% 1. outso2
+% 2. outso4
+% 3. linso4
+% 4. linso2
+% 5. linsk2
+% 6. linsk4
+
+% if re-starting from the middle of a set of 28 trials,
+% change the value of start to the new starting trial number
+start=1;    % Enter starting position, default is 1
+
+switch condition
+    case 'linsk4'
+        readRange='B3:C30'; writeRange='D3:D30';
+    case 'linsk2'
+        readRange='F3:G30'; writeRange='H3:H30';
+    case 'linso4'
+        readRange='J3:K30'; writeRange='L3:L30';
+    case 'linso2'
+        readRange='N3:O30'; writeRange='P3:P30';
+    case 'outso4'
+        readRange='R3:S30'; writeRange='T3:T30';
+    case 'outso2'
+        readRange='V3:W30'; writeRange='X3:X30';
+end
+
+if start==1     % Does not re-load data if re-starting from the middle
+[num,txt]=xlsread('data.xlsx','Response Time',readRange);   % filename corresponds to subject name
+
+responsetime=zeros(28,1);
+mode=zeros(28,1);
+
+motors=char(txt);
+motor1=motors(:,1);
+motor2=motors(:,3);
+for i=1:28
+    switch motors(i,2)
+        case ' '
+            mode(i)=1;
+        case '&'
+            mode(i)=2;
+        case '/'
+            mode(i)=3;
+    end
+end
+intensity=num;
+end
+
+for i=start:28
+responsetime(i)=fourmotors(motor1(i),motor2(i),mode(i),intensity(i));
+disp(i);
+    keyboard;
+end
+
+for i=1:28
+    if responsetime(i)==0
+        responsetime(i)=' ';
+    end
+end
+
+xlswrite('data.xlsx',responsetime,'Response Time',writeRange);
