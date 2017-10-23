@@ -1,0 +1,106 @@
+% --- Executes on button press in start.
+function [responsetime] = fourmotors(var1,var2,mode,intensity)
+
+% Ports of tactor A, B, C, D (backup/practice tactors at 'D10' and 'D11')
+tactorA='D3';
+tactorB='D5';
+tactorC='D6';
+tactorD='D9';
+% In case a tactor stops functioning, replace it with tactor E or F,
+% then replace its port by 'D10'/'D11'.
+
+% Port of push button 1 (backup pushbutton at 'D7')
+pushbutton='D8';
+% In case the push button stops functioning, replace it push button 2,
+% then replace its port by 'D7'.
+
+if var1=='E' || var1=='F'   % Practice Mode
+    var1=var1-4; var2=var2-4;
+    tactorA='D10';  % Tactor E
+    tactorB='D11';  % Tactor F
+end
+    
+global amega;
+amega= arduino('COM16','Uno');
+
+responsetime=0;
+
+if mode == 1 || mode == 2
+    switch var1
+        case 'A'
+            writePWMDutyCycle(amega,tactorA,intensity);
+        case 'B'
+            writePWMDutyCycle(amega,tactorB,intensity);
+        case 'C'
+            writePWMDutyCycle(amega,tactorC,intensity);
+        case 'D'
+            writePWMDutyCycle(amega,tactorD,intensity);
+    end
+    switch var2
+        case 'A'
+            writePWMDutyCycle(amega,tactorA,intensity);
+        case 'B'
+            writePWMDutyCycle(amega,tactorB,intensity);
+        case 'C'
+            writePWMDutyCycle(amega,tactorC,intensity);
+        case 'D'
+            writePWMDutyCycle(amega,tactorD,intensity);
+    end
+    tic;
+    while toc<3
+        if responsetime==0 && readDigitalPin(amega,pushbutton)==1
+            responsetime=toc;
+        end
+        pause(0.01);
+    end
+end
+
+if mode == 3        
+        switch var1
+            case 'A'
+                writePWMDutyCycle(amega,tactorA,intensity);
+            case 'B'
+                writePWMDutyCycle(amega,tactorB,intensity);
+            case 'C'
+                writePWMDutyCycle(amega,tactorC,intensity);
+            case 'D'
+                writePWMDutyCycle(amega,tactorD,intensity);
+        end
+        tic;
+        while toc<1.5
+            if responsetime==0 && readDigitalPin(amega,pushbutton)==1
+                responsetime=toc;
+            end
+            pause(0.01);
+        end
+        switch var1
+            case 'A'
+                writePWMDutyCycle(amega,tactorA,0);
+            case 'B'
+                writePWMDutyCycle(amega,tactorB,0);
+            case 'C'
+                writePWMDutyCycle(amega,tactorC,0);
+            case 'D'
+                writePWMDutyCycle(amega,tactorD,0);
+        end
+        switch var2
+            case 'A'
+                writePWMDutyCycle(amega,tactorA,intensity);
+            case 'B'
+                writePWMDutyCycle(amega,tactorB,intensity);
+            case 'C'
+                writePWMDutyCycle(amega,tactorC,intensity);
+            case 'D'
+                writePWMDutyCycle(amega,tactorD,intensity);
+        end
+        while toc<3
+            if responsetime==0 && readDigitalPin(amega,pushbutton)==1
+                responsetime=toc;
+            end
+            pause(0.01);
+        end
+end
+display(responsetime);
+clear global amega
+
+end
