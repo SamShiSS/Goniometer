@@ -1,4 +1,6 @@
-% This script plots data for one single subject
+% This MATLAB script generates plots for the study's outcome measures for a single subject
+
+% Summary of Figures
 % Figure 1: Effect of Layer/Pressure/Intensity on Response Time
 % Figure 2: Effect of Tactors' Separation Distance on Response Time
 % Figure 3: Effect of Layer/Pressure/Intensity on Response Accuracy
