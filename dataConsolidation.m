@@ -7,8 +7,7 @@
 % Figure 5: Response Accuracy In-depth Analysis
 % Figure 6: Effects of Layer/Pressure/Intensity on Locating Error
 % Figure 7: Effect of Spacing on Locating Error
-% Figure 8: Locating Error in-depth Analysis
-% Figure 9: Outcome Measure Interaction Analysis
+% Figure 8: Outcome Measure Interaction Analysis
 
 % Load each subject's outcome measure data into a structure array
 sub(1)=load('subject1.mat');
@@ -631,58 +630,7 @@ c.outso2.le50b6m=nanmean(c.outso2.le50b6); c.outso2.le50b6s=std(c.outso2.le50b6)
 c.outso2.le50b8m=nanmean(c.outso2.le50b8); c.outso2.le50b8s=std(c.outso2.le50b8);
 c.outso2.le50b10m=nanmean(c.outso2.le50b10); c.outso2.le50b10s=std(c.outso2.le50b10);
 
-% Figure 8: Locating Error in-depth Analysis
-c.linsk4.ls=[]; c.linsk2.ls=[]; c.linso4.ls=[]; c.linso2.ls=[]; c.outso4.ls=[]; c.outso2.ls=[];
-c.linsk4.ms=[]; c.linsk2.ms=[]; c.linso4.ms=[]; c.linso2.ms=[]; c.outso4.ms=[]; c.outso2.ms=[];
-c.linsk4.ps=[]; c.linsk2.ps=[]; c.linso4.ps=[]; c.linso2.ps=[]; c.outso4.ps=[]; c.outso2.ps=[];
-c.linsk4.ds=[]; c.linsk2.ds=[]; c.linso4.ds=[]; c.linso2.ds=[]; c.outso4.ds=[]; c.outso2.ds=[];
-
-for i=1:length(sub)
-c.linsk4.ls=vertcat(c.linsk4.ls,sub(i).linsk4.ls);
-c.linsk2.ls=vertcat(c.linsk2.ls,sub(i).linsk2.ls);
-c.linso4.ls=vertcat(c.linso4.ls,sub(i).linso4.ls);
-c.linso2.ls=vertcat(c.linso2.ls,sub(i).linso2.ls);
-c.outso4.ls=vertcat(c.outso4.ls,sub(i).outso4.ls);
-c.outso2.ls=vertcat(c.outso2.ls,sub(i).outso2.ls);
-
-c.linsk4.ms=vertcat(c.linsk4.ms,sub(i).linsk4.ms);
-c.linsk2.ms=vertcat(c.linsk2.ms,sub(i).linsk2.ms);
-c.linso4.ms=vertcat(c.linso4.ms,sub(i).linso4.ms);
-c.linso2.ms=vertcat(c.linso2.ms,sub(i).linso2.ms);
-c.outso4.ms=vertcat(c.outso4.ms,sub(i).outso4.ms);
-c.outso2.ms=vertcat(c.outso2.ms,sub(i).outso2.ms);
-
-c.linsk4.ds=vertcat(c.linsk4.ds,sub(i).linsk4.ds);
-c.linsk2.ds=vertcat(c.linsk2.ds,sub(i).linsk2.ds);
-c.linso4.ds=vertcat(c.linso4.ds,sub(i).linso4.ds);
-c.linso2.ds=vertcat(c.linso2.ds,sub(i).linso2.ds);
-c.outso4.ds=vertcat(c.outso4.ds,sub(i).outso4.ds);
-c.outso2.ds=vertcat(c.outso2.ds,sub(i).outso2.ds);
-
-c.linsk4.ps=vertcat(c.linsk4.ps,sub(i).linsk4.ps);
-c.linsk2.ps=vertcat(c.linsk2.ps,sub(i).linsk2.ps);
-c.linso4.ps=vertcat(c.linso4.ps,sub(i).linso4.ps);
-c.linso2.ps=vertcat(c.linso2.ps,sub(i).linso2.ps);
-c.outso4.ps=vertcat(c.outso4.ps,sub(i).outso4.ps);
-c.outso2.ps=vertcat(c.outso2.ps,sub(i).outso2.ps);
-end
-
-c.locshiftdis(:,1)=cellstr([sprintf('%7.0f',100*sum(vertcat(c.linsk4.ls,c.linsk2.ls))/sum(vertcat(c.linsk4.ls,c.linsk2.ls,c.linsk4.ms,c.linsk2.ms,c.linsk4.ds,c.linsk2.ds,c.linsk4.ps,c.linsk2.ps)))
-sprintf('%7.0f',100*sum(vertcat(c.linsk4.ms,c.linsk2.ms))/sum(vertcat(c.linsk4.ls,c.linsk2.ls,c.linsk4.ms,c.linsk2.ms,c.linsk4.ds,c.linsk2.ds,c.linsk4.ps,c.linsk2.ps)))    
-sprintf('%7.0f',100*sum(vertcat(c.linsk4.ds,c.linsk2.ds))/sum(vertcat(c.linsk4.ls,c.linsk2.ls,c.linsk4.ms,c.linsk2.ms,c.linsk4.ds,c.linsk2.ds,c.linsk4.ps,c.linsk2.ps)))
-sprintf('%7.0f',100*sum(vertcat(c.linsk4.ps,c.linsk2.ps))/sum(vertcat(c.linsk4.ls,c.linsk2.ls,c.linsk4.ms,c.linsk2.ms,c.linsk4.ds,c.linsk2.ds,c.linsk4.ps,c.linsk2.ps)))]);
-
-c.locshiftdis(:,2)=cellstr([sprintf('%7.0f',100*sum(vertcat(c.linso4.ls,c.linso2.ls))/sum(vertcat(c.linso4.ls,c.linso2.ls,c.linso4.ms,c.linso2.ms,c.linso4.ds,c.linso2.ds,c.linso4.ps,c.linso2.ps)))
-sprintf('%7.0f',100*sum(vertcat(c.linso4.ms,c.linso2.ms))/sum(vertcat(c.linso4.ls,c.linso2.ls,c.linso4.ms,c.linso2.ms,c.linso4.ds,c.linso2.ds,c.linso4.ps,c.linso2.ps)))    
-sprintf('%7.0f',100*sum(vertcat(c.linso4.ds,c.linso2.ds))/sum(vertcat(c.linso4.ls,c.linso2.ls,c.linso4.ms,c.linso2.ms,c.linso4.ds,c.linso2.ds,c.linso4.ps,c.linso2.ps)))
-sprintf('%7.0f',100*sum(vertcat(c.linso4.ps,c.linso2.ps))/sum(vertcat(c.linso4.ls,c.linso2.ls,c.linso4.ms,c.linso2.ms,c.linso4.ds,c.linso2.ds,c.linso4.ps,c.linso2.ps)))]);
-
-c.locshiftdis(:,3)=cellstr([sprintf('%7.0f',100*sum(vertcat(c.outso4.ls,c.outso2.ls))/sum(vertcat(c.outso4.ls,c.outso2.ls,c.outso4.ms,c.outso2.ms,c.outso4.ds,c.outso2.ds,c.outso4.ps,c.outso2.ps)))
-sprintf('%7.0f',100*sum(vertcat(c.outso4.ms,c.outso2.ms))/sum(vertcat(c.outso4.ls,c.outso2.ls,c.outso4.ms,c.outso2.ms,c.outso4.ds,c.outso2.ds,c.outso4.ps,c.outso2.ps)))    
-sprintf('%7.0f',100*sum(vertcat(c.outso4.ds,c.outso2.ds))/sum(vertcat(c.outso4.ls,c.outso2.ls,c.outso4.ms,c.outso2.ms,c.outso4.ds,c.outso2.ds,c.outso4.ps,c.outso2.ps)))
-sprintf('%7.0f',100*sum(vertcat(c.outso4.ps,c.outso2.ps))/sum(vertcat(c.outso4.ls,c.outso2.ls,c.outso4.ms,c.outso2.ms,c.outso4.ds,c.outso2.ds,c.outso4.ps,c.outso2.ps)))]);
-
-% Figure 9: Outcome Measure Interaction Analysis
+% Figure 8: Outcome Measure Interaction Analysis
 for i=1:length(sub)
        c.linsk4.rt1(i)=sub(i).linsk4.rt1m;
        c.linsk4.rt0(i)=sub(i).linsk4.rt0m;
