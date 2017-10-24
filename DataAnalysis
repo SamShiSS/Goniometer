@@ -1,4 +1,4 @@
-% This MATLAB script calculates outcome measures for a subject's perception of vibratory stimuli, based on raw data from the experiment
+% This MATLAB script computes the outcome measures for perception of vibratory stimuli for a single subject based on raw data from the experiment.
 
 % Summary of the data analysis script
 % Step 1: Load experimental conditions data
