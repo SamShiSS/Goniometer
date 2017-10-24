@@ -1,4 +1,4 @@
-% This MATLAB script creates plots of outcome measures vs. vibratory motor configuration variables for all subjects
+% This MATLAB script creates plots of outcome measures vs. vibratory motor configuration variables using results from all subjects
 
 % Summary of plots
 % Figure 1: Effect of Layer/Pressure/Intensity on Response Time
