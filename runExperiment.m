@@ -52,8 +52,8 @@ end
 intensity=num;
 end
 
-% For each trial, call function "Fn-RunMotors".
-% "Fn-RunMotors" runs the motors in a configuration specified by its input variables, and outputs the subject's response time for each trial.
+% For each trial, call function "fn-RunMotors".
+% "fn-RunMotors" runs the motors in a configuration specified by its input variables, and outputs the subject's response time for each trial.
 for i=start:28
 responsetime(i)=fourmotors(motor1(i),motor2(i),mode(i),intensity(i));
 disp(i);
