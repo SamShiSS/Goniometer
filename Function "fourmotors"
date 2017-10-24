@@ -1,31 +1,23 @@
-% --- Executes on button press in start.
+% This function is executed during each trial of the experiment to activate the four motors under a specified set of parameter values
+% "var1" and "var2" specifies the two active motors. "mode" specifies vibratory pattern. "intensity" specifies vibratory intensity
+% This function outputs the subject's response time recorded by a push button switch.
+
 function [responsetime] = fourmotors(var1,var2,mode,intensity)
 
-% Ports of tactor A, B, C, D (backup/practice tactors at 'D10' and 'D11')
+% Assign Arduino output ports for the four motors A, B, C, D
 tactorA='D3';
 tactorB='D5';
 tactorC='D6';
 tactorD='D9';
-% In case a tactor stops functioning, replace it with tactor E or F,
-% then replace its port by 'D10'/'D11'.
 
-% Port of push button 1 (backup pushbutton at 'D7')
-pushbutton='D8';
-% In case the push button stops functioning, replace it push button 2,
-% then replace its port by 'D7'.
+pushbutton='D8';    % Assign an Arduino input port for the push button
 
-if var1=='E' || var1=='F'   % Practice Mode
-    var1=var1-4; var2=var2-4;
-    tactorA='D10';  % Tactor E
-    tactorB='D11';  % Tactor F
-end
-    
-global amega;
-amega= arduino('COM16','Uno');
+global amega;       % Declare the Arduino microcontroller chip as a global variable
+amega= arduino('COM16','Uno');      % Initiate Arduino's connection with PC
 
-responsetime=0;
+responsetime=0;     % Initiate response time output variable
 
-if mode == 1 || mode == 2
+if mode == 1 || mode == 2       % Run the motors in vibratory pattern as specified by the function's input, and record response time
     switch var1
         case 'A'
             writePWMDutyCycle(amega,tactorA,intensity);
@@ -55,7 +47,7 @@ if mode == 1 || mode == 2
     end
 end
 
-if mode == 3        
+if mode == 3        % Run the motors in vibratory pattern as specified by the function's input, and record response time
         switch var1
             case 'A'
                 writePWMDutyCycle(amega,tactorA,intensity);
@@ -100,7 +92,7 @@ if mode == 3
             pause(0.01);
         end
 end
-display(responsetime);
-clear global amega
+display(responsetime);      % Display the response time in the command window
+clear global amega          % Reset after the completion of each trial
 
 end
