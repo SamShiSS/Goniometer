@@ -1,6 +1,4 @@
-condition='linsk4';   % Enter condition
-
-% Before each data collection session, write order of conditions
+% Order of experimental condition. Update the order before each subject's session based on randomization result
 % 1. outso2
 % 2. outso4
 % 3. linso4
@@ -8,11 +6,9 @@ condition='linsk4';   % Enter condition
 % 5. linsk2
 % 6. linsk4
 
-% if re-starting from the middle of a set of 28 trials,
-% change the value of start to the new starting trial number
-start=1;    % Enter starting position, default is 1
+condition='linsk4';   % Enter current experimental condition
 
-switch condition
+switch condition    % Specify input and output area of a prepared Excel spreadsheet, based on the current experimental condition
     case 'linsk4'
         readRange='B3:C30'; writeRange='D3:D30';
     case 'linsk2'
@@ -27,12 +23,16 @@ switch condition
         readRange='V3:W30'; writeRange='X3:X30';
 end
 
-if start==1     % Does not re-load data if re-starting from the middle
-[num,txt]=xlsread('data.xlsx','Response Time',readRange);   % filename corresponds to subject name
+start=1;    % Enter starting trial of the set of 28 trials, default is 1
 
+if start==1     % Load parameters' values if and only if starting from the beginning
+[num,txt]=xlsread('data.xlsx','Response Time',readRange);   % Read the parameters' values from a prepared Excel spreadsheet
+
+% Initialize vertical matrices
 responsetime=zeros(28,1);
 mode=zeros(28,1);
 
+% Assign parameters' values to appropriate matrices
 motors=char(txt);
 motor1=motors(:,1);
 motor2=motors(:,3);
@@ -49,16 +49,19 @@ end
 intensity=num;
 end
 
+% For each trial, call function "fourmotors"
+% This activates the four motors in a configuration specified by parameters' values, and records the subject's response time for each trial.
 for i=start:28
 responsetime(i)=fourmotors(motor1(i),motor2(i),mode(i),intensity(i));
 disp(i);
     keyboard;
 end
 
+% If the subject fails to respond in a trial, assign a blank space to the response time variable
 for i=1:28
     if responsetime(i)==0
         responsetime(i)=' ';
     end
 end
 
-xlswrite('data.xlsx',responsetime,'Response Time',writeRange);
+xlswrite('data.xlsx',responsetime,'Response Time',writeRange);  % Write the subject's response time to the Excel spreadsheet
