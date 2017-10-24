@@ -1,4 +1,4 @@
-% This MATLAB script consolidates data from all subjects for the following plots
+% This MATLAB script consolidates outcome measure results from all subjects for generation of the following plots
 
 % Figure 1: Effects of Layer/Pressure/Intensity on Response Time
 % Figure 2: Effects of Tactors' Separation Distance on Response Time
@@ -10,7 +10,7 @@
 % Figure 8: Locating Error in-depth Analysis
 % Figure 9: Outcome Measure Interaction Analysis
 
-% Load each subject's raw data into a structure array
+% Load each subject's outcome measure data into a structure array
 sub(1)=load('subject1.mat');
 sub(2)=load('subject2.mat');
 sub(3)=load('subject3.mat');
