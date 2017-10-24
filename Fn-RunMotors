@@ -1,10 +1,10 @@
-% This function is executed during each trial of the experiment to activate the four motors under a specified set of parameter values
-% "var1" and "var2" specifies the two active motors. "mode" specifies vibratory pattern. "intensity" specifies vibratory intensity
-% This function outputs the subject's response time recorded by a push button switch.
+% This function is executed during each trial of the experiment to run the motors under a specified combination of input variable values
+% "var1" and "var2" specify the active motors. "mode" specifies the vibratory pattern. "intensity" specifies the vibratory intensity
+% The function outputs the subject's response time recorded by a push button switch.
 
 function [responsetime] = fourmotors(var1,var2,mode,intensity)
 
-% Assign Arduino output ports for the four motors A, B, C, D
+% Assign Arduino output ports for the motors A, B, C, D
 tactorA='D3';
 tactorB='D5';
 tactorC='D6';
@@ -17,7 +17,7 @@ amega= arduino('COM16','Uno');      % Initiate Arduino's connection with PC
 
 responsetime=0;     % Initiate response time output variable
 
-if mode == 1 || mode == 2       % Run the motors in vibratory pattern as specified by the function's input, and record response time
+if mode == 1 || mode == 2       % Run the motors in the vibratory pattern specified by the function's input. And record the subject's response time.
     switch var1
         case 'A'
             writePWMDutyCycle(amega,tactorA,intensity);
@@ -47,7 +47,7 @@ if mode == 1 || mode == 2       % Run the motors in vibratory pattern as specifi
     end
 end
 
-if mode == 3        % Run the motors in vibratory pattern as specified by the function's input, and record response time
+if mode == 3        % Run the motors in the vibratory pattern specified by the function's input. And record the subject's response time.
         switch var1
             case 'A'
                 writePWMDutyCycle(amega,tactorA,intensity);
